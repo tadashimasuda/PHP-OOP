@@ -1,0 +1,7 @@
+div#main{
+    height: 500px;
+    width: 500px;
+}
+div.highlight{
+    background-color: yellow;
+}
