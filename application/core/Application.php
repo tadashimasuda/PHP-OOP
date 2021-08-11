@@ -105,7 +105,7 @@ abstract class Application{
         $this->response-setContent($content);
     }
 
-    protected function fundController($controller_class){
+    protected function findController($controller_class){
         if (!class_exists($controller_class)){
             $controller_file = $this->getControllerDir().'/'.$controller_class.'.php';
             if (!is_readable($controller_file)){
