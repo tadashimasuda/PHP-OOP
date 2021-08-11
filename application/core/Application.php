@@ -37,6 +37,7 @@ abstract class Application{
 
     }
 
+    // 拡張クラスにこのメソッドの定義を強制する
     abstract public function getRootDir();
 
     abstract public function registerRoutes();
