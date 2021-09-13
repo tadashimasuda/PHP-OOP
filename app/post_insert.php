@@ -10,8 +10,10 @@ foreach ($_POST as $key => $item){
 $conn= new DBConnect();
 $items =$conn->insert('tasks',$items);
 
-if ($items){
 
+if ($items){
+    header("Location: /?message=success");
+    exit();
 }else{
     echo 'エラーが発生しました。';
 }

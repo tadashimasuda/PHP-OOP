@@ -1,5 +1,9 @@
 <?php
 require_once ('./Controller/DBConnect.php');
+if (isset($_GET['message']) && $_GET['message']== 'success'){
+    $alert = "<script type='text/javascript'>alert('投稿に成功しました。');</script>";
+    echo $alert;
+}
 ?>
 <!doctype html>
 <html lang="ja">
