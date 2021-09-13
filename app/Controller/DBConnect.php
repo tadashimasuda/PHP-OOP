@@ -37,25 +37,23 @@ class DBConnect{
         $sql = "INSERT INTO {$table} ({$keys}) VALUES({$values})";
         return $sql;
     }
-    public function insert($table,$items){
-        $check = new FormCheck();
-        $result = $check->check($items);
 
-        if (isset($result['errors'])){
-            return $result['errors'];
-        }else{
-            $sql = $this->insert_sql($table,$items);
-            $stm = $this->conn->prepare($sql);
-            foreach ($items as $key => $item){
-                $param = ":{$key}";
-                $stm->bindValue($param,$item,PDO::PARAM_STR);
-            }
-            if ($stm->execute()){
-                return true;
-            }else{
-                return false;
-            }
+    public function insert($table,$items){
+        $sql = $this->insert_sql($table,$items);
+        $stm = $this->conn->prepare($sql);
+        foreach ($items as $key => $item){
+            $param = ":{$key}";
+            $stm->bindValue($param,$item,PDO::PARAM_STR);
         }
+        if ($stm->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function update($table,$items){
+
     }
 }
 

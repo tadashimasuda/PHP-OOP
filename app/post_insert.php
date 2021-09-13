@@ -7,13 +7,19 @@ foreach ($_POST as $key => $item){
     $items[$key] = $item;
 }
 
-$conn= new DBConnect();
-$items =$conn->insert('tasks',$items);
+$check = new FormCheck();
+$result = $check->check($items);
 
-
-if ($items){
-    header("Location: /?message=success");
-    exit();
+if (isset($result['errors'])){
+    print_r($result['errors']);
 }else{
-    echo 'エラーが発生しました。';
+    $conn= new DBConnect();
+    $items =$conn->insert('tasks',$items);
+    if ($items){
+        header("Location: /?message=success");
+        exit();
+    }else{
+        echo 'エラーが発生しました。';
+    }
 }
+
