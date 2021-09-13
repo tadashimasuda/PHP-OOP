@@ -16,14 +16,22 @@ class FormCheck{
         }
     }
 
-    public function check($title,$body){
-        if (!isset($title) || $title == ""){
-            $this->errors[] = "title not input";
+//    public function check($title,$body){
+//        if (!isset($title) || $title == ""){
+//            $this->errors[] = "title not input";
+//        }
+//        if (!isset($body) || $body == "") {
+//            $this->errors[] = "body not input";
+//        }
+//
+//        return $this->count($this->errors);
+//    }
+    public function check($items){
+        foreach ($items as $key =>$value){
+            if (!isset($value) || $value == ''){
+                $this->errors[] = "{$key}が存在しません。";
+            }
         }
-        if (!isset($body) || $body == "") {
-            $this->errors[] = "body not input";
-        }
-
         return $this->count($this->errors);
     }
 }

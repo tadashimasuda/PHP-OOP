@@ -11,6 +11,7 @@ require_once ('./Controller/DBConnect.php');
     <title>Document</title>
 </head>
 <body>
+<a href="post_form.html">投稿する</a>
 <?php
 $conn= new DBConnect();
 $items =$conn->select('SELECT * FROM tasks;');

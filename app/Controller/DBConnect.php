@@ -24,20 +24,36 @@ class DBConnect{
         return $items;
     }
 
-    public function insert($title,$body){
+    public function insert_sql($table,$items){
+
+        $bind_params=[];
+        foreach ($items as $key => $value){
+            $bind_params[$key] = ":{$key}";
+        }
+
+        $keys = implode(',',array_keys($items));
+        $values = implode(',',array_values($bind_params));
+
+        $sql = "INSERT INTO {$table} ({$keys}) VALUES({$values})";
+        return $sql;
+    }
+    public function insert($table,$items){
         $check = new FormCheck();
-        $result = $check->check($title,$body);
+        $result = $check->check($items);
+
         if (isset($result['errors'])){
             return $result['errors'];
         }else{
-            $sql = "INSERT INTO tasks(title,body) VALUES(:title,:body)";
+            $sql = $this->insert_sql($table,$items);
             $stm = $this->conn->prepare($sql);
-            $stm->bindValue(':title',$title,PDO::PARAM_STR);
-            $stm->bindValue(':body',$body,PDO::PARAM_STR);
+            foreach ($items as $key => $item){
+                $param = ":{$key}";
+                $stm->bindValue($param,$item,PDO::PARAM_STR);
+            }
             if ($stm->execute()){
-                return 'success';
+                return true;
             }else{
-                return 'error';
+                return false;
             }
         }
     }

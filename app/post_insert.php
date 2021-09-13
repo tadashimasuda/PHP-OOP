@@ -2,15 +2,16 @@
 require_once ('./Controller/DBConnect.php');
 require_once ('form_check.php');
 
-$title = $_POST['title'];
-$body = $_POST['body'];
+$items=[];
+foreach ($_POST as $key => $item){
+    $items[$key] = $item;
+}
 
 $conn= new DBConnect();
-$items =$conn->insert($title,$body);
+$items =$conn->insert('tasks',$items);
 
-var_dump($items);
-//if($items ['errors']){
-//    echo 'aaa';
-//}else{
-//    echo $items;
-//}
+if ($items){
+
+}else{
+    echo 'エラーが発生しました。';
+}
