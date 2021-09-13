@@ -4,7 +4,7 @@ require_once ('form_check.php');
 
 $items=[];
 foreach ($_POST as $key => $item){
-    $items[$key] = $item;
+    $items[$key] = htmlspecialchars($item, ENT_QUOTES, "UTF-8");
 }
 
 $check = new FormCheck();
