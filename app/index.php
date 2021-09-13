@@ -18,12 +18,11 @@ if (isset($_GET['message']) && $_GET['message']== 'success'){
 <a href="post_form.html">投稿する</a>
 <?php
 $conn= new DBConnect();
-$items =$conn->select('SELECT * FROM tasks;');
+$items =$conn->select_all('tasks');
 ?>
 <?php foreach ($items as $item): ?>
     <p>
-        <?php print($item['title']) ?>
-        <?php print($item['body']) ?>
+        <a href="/task.php?id=<?php echo $item['id']; ?>"><?php print($item['title']) ?></a>
     </p>
 <?php endforeach; ?>
 </body>

@@ -17,11 +17,27 @@ class DBConnect{
         return $db;
     }
 
-    public function select($sql){
+    public function select_all($table){
+        $sql = "SELECT * FROM {$table}";
         $stm = $this->conn->prepare($sql);
         $stm->execute();
         $items = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $items;
+    }
+
+    public function find($table,$column,$value){
+        $bind_params = ":{$column}";
+        $sql = "SELECT * FROM {$table} WHERE {$column} = {$bind_params};";
+
+        $stm = $this->conn->prepare($sql);
+        $stm -> bindParam($column, $value);
+        $stm -> execute();
+        $items = $stm->fetch(PDO::FETCH_ASSOC);
+        if ($items){
+            return $items;
+        }else{
+            return false;
+        }
     }
 
     public function insert_sql($table,$items){
