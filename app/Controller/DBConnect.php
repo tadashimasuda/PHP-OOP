@@ -1,4 +1,5 @@
 <?php
+require_once ('./form_check.php');
 
 class DBConnect{
     public function __construct()
@@ -24,14 +25,20 @@ class DBConnect{
     }
 
     public function insert($title,$body){
-        $sql = "INSERT INTO tasks(title,body) VALUES(:title,:body)";
-        $stm = $this->conn->prepare($sql);
-        $stm->bindValue(':title',$title,PDO::PARAM_STR);
-        $stm->bindValue(':body',$body,PDO::PARAM_STR);
-        if ($stm->execute()){
-            echo 'success';
+        $check = new FormCheck();
+        $result = $check->check($title,$body);
+        if ($result){
+            return $result;
         }else{
-            echo 'error';
+            $sql = "INSERT INTO tasks(title,body) VALUES(:title,:body)";
+            $stm = $this->conn->prepare($sql);
+            $stm->bindValue(':title',$title,PDO::PARAM_STR);
+            $stm->bindValue(':body',$body,PDO::PARAM_STR);
+            if ($stm->execute()){
+                return 'success';
+            }else{
+                return 'error';
+            }
         }
     }
 }
