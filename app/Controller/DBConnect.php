@@ -68,8 +68,15 @@ class DBConnect{
         }
     }
 
-    public function update($table,$items){
+    public function delete($table,$cloumn,$value){
+        $sql = "DELETE FROM {$table} WHERE {$cloumn} = {$value}";
 
+        $stm = $this->conn->prepare($sql);
+        if ($stm->execute()){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 

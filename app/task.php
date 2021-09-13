@@ -21,5 +21,9 @@ $items = $conn->find('tasks','id',$id);
 <body>
     <?php echo $items['title'];?>
     <?php echo $items['body'];?>
+    <form action="delete_post.php" method="post">
+        <input type="hidden" name="id" value="<?php echo $items['id'];?>">
+        <input type="submit" value="削除">
+    </form>
 </body>
 </html>
