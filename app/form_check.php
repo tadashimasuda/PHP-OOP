@@ -5,9 +5,14 @@ class FormCheck{
     {
         $this->errors = [];
     }
+
     public function count($errors){
         if (count($errors)>0){
-            return $errors;
+            $res['errors'] = $errors;
+            return $res;
+        }else{
+            $res=[];
+            return $res;
         }
     }
 

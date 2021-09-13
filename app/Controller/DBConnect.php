@@ -27,8 +27,8 @@ class DBConnect{
     public function insert($title,$body){
         $check = new FormCheck();
         $result = $check->check($title,$body);
-        if ($result){
-            return $result;
+        if (isset($result['errors'])){
+            return $result['errors'];
         }else{
             $sql = "INSERT INTO tasks(title,body) VALUES(:title,:body)";
             $stm = $this->conn->prepare($sql);
