@@ -25,5 +25,9 @@ $items = $conn->find('tasks','id',$id);
         <input type="hidden" name="id" value="<?php echo $items['id'];?>">
         <input type="submit" value="削除">
     </form>
+    <form action="update.php" method="get">
+        <input type="hidden" name="id" value="<?php echo $items['id'];?>">
+        <input type="submit" value="編集">
+    </form>
 </body>
 </html>

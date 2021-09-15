@@ -78,6 +78,30 @@ class DBConnect{
             return false;
         }
     }
+
+    public function update($table,$set,$where){
+        $set_implude  = $this->sql_implode($set);
+        $where_implude  = $this->sql_implode($where);
+
+        $sql = "UPDATE {$table} SET {$set_implude} WHERE {$where_implude}";
+
+        var_dump($sql);
+        $stm = $this->conn->prepare($sql);
+        if ($stm->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function sql_implode($array){
+        $sql_parts =[];
+        foreach ($array as $key => $value){
+            $sql_parts[] = "{$key} = '{$array[$key]}'";
+        }
+
+        return implode(',',$sql_parts);
+    }
 }
 
 
